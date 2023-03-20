@@ -31,12 +31,6 @@ int main()
             max = y;
     }
 
-    for (int i=0; i<max+1; i++){
-        for(int j=0; j<max+1; j++)
-        cout<<dfa[i][j]<<" ";
-        cout<<"\n";
-    }
-
     while(1){
         cout<<"1. Introducere cuvant.\n";
         cout<<"2. Iesire.\n";
