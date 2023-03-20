@@ -30,57 +30,67 @@ int main()
         if (y > max)
             max = y;
     }
-
     while(1){
         cout<<"1. Introducere cuvant.\n";
         cout<<"2. Iesire.\n";
         cin>>choice;
         switch(choice){
             case 1:
-                cout<<"\nIntroduceti cuvantul: ";
+                cout<<"\nIntroduceti cuvantul (pentru cuvantul vid tastati @): ";
                 cin>>cuvant;
-                for (int i=0; i<cuvant.length(); i++){
-                    ok = 0;
-                    for (int j=0; j<max+1; j++){
-                        if (dfa[starecrt][j].length() == 1 ){
-                            if (dfa[starecrt][j] == (string (1, cuvant[i]))){
-                                starecrt = j;
-                                drum.append("->");
-                            drum.append(std::to_string(starecrt));
-                                ok = 1;
-                                break;
-                            }
-                        }
-                        if (dfa[starecrt][j].length() > 1){
-                            for (int k=0; k<dfa[starecrt][j].length(); k+=2){
-                                if (dfa[starecrt][j][k] == cuvant[i]){
+                if (cuvant != "@"){
+                    for (int i=0; i<cuvant.length(); i++){
+                        ok = 0;
+                        for (int j=0; j<max+1; j++){
+                            if (dfa[starecrt][j].length() == 1 ){
+                                if (dfa[starecrt][j] == (string (1, cuvant[i]))){
                                     starecrt = j;
                                     drum.append("->");
-                                    drum.append(std::to_string(starecrt));
+                                drum.append(std::to_string(starecrt));
                                     ok = 1;
                                     break;
                                 }
                             }
+                            if (dfa[starecrt][j].length() > 1){
+                                for (int k=0; k<dfa[starecrt][j].length(); k+=2){
+                                    if (dfa[starecrt][j][k] == cuvant[i]){
+                                        starecrt = j;
+                                        drum.append("->");
+                                        drum.append(std::to_string(starecrt));
+                                        ok = 1;
+                                        break;
+                                    }
+                                }
+                            }
                         }
-                    }
-                    if (ok == 0){
-                        cout<<"Cuvantul nu este acceptat\n";
-                        break;
-                    }
-                }
-                if (ok == 1){
-                    for (int i=0; i<max+1; i++){
-                        ok = 0;
-                        if (starecrt == stare_f[i]){
-                            cout<<"Cuvant acceptat\n";
-                            cout<<drum<<"\n";
-                            ok = 1;
+                        if (ok == 0){
+                            cout<<"Cuvantul nu este acceptat\n";
                             break;
                         }
-
                     }
-                    if (ok == 0)
-                        cout<<"Cuvant nu este acceptat\n";
+                    if (ok == 1){
+                        for (int i=0; i<max+1; i++){
+                            ok = 0;
+                            if (starecrt == stare_f[i]){
+                                cout<<"Cuvant acceptat\n";
+                                cout<<drum<<"\n";
+                                ok = 1;
+                                break;
+                            }
+                    }
+                        if (ok == 0)
+                            cout<<"Cuvant nu este acceptat\n";
+                    }
+                }
+                else{
+                    ok = 0;
+                    for (int i=0; i<max+1; i++)
+                        if (starecrt == stare_f[i])
+                            ok = 1;
+                    if (ok == 1){
+                        cout<<"Cuvant acceptat\n";
+                        cout<<starecrt<<"\n";
+                    }
                 }
                 starecrt = 0;
                 drum = std::to_string(starecrt);
@@ -90,6 +100,5 @@ int main()
                 break;
         }
     }
-
     return 0;
 }
