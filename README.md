@@ -1,5 +1,5 @@
 # Tema_1_LFA
-Implementarea unui AFD.
+Implementarea unui AFD. <br/>
 Datele de intrare:
 Linia 1: Numarul de stari finale
 Linia 2: Stare finala 1
